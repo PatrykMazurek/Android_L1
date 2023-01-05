@@ -23,15 +23,16 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
-    public static List<Message> messageList;
+//    public static List<Message> messageList;
+    public static MessageRepository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        messageList = new ArrayList<>();
-        messageList.add(new Message("Patryk", "Mazurek", "Testowa", "Dowolna treść"));
-        messageList.add(new Message("Jan", "Nowak", "Testowa", "Dowolna treść"));
+        repository = new MessageRepository(getApplication());
+//        messageList = new ArrayList<>();
+//        messageList.add(new Message("Patryk", "Mazurek", "Testowa", "Dowolna treść"));
+//        messageList.add(new Message("Jan", "Nowak", "Testowa", "Dowolna treść"));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());

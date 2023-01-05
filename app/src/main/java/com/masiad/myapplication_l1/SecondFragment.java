@@ -10,6 +10,8 @@ import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.navigation.fragment.NavHostFragment;
 import com.masiad.myapplication_l1.databinding.FragmentSecondBinding;
 
@@ -60,13 +62,19 @@ public class SecondFragment extends Fragment {
     }
 
     public ListAdapter buildAdapter(){
+        LiveData<List<Message>> tempMessage = MainActivity.repository.getListMessages();
         List<Map<String, String>> maps = new ArrayList<>();
-        for(Message m : MainActivity.messageList){
-            Map<String, String> temp = new HashMap<String, String>();
-            temp.put("name", m.name + " " + m.lastName);
-            temp.put("title" , m.title);
-            maps.add(temp);
-        }
+        tempMessage.observe(this, new Observer<List<Message>>() {
+            @Override
+            public void onChanged(List<Message> messages) {
+                for(Message m : messages){
+                    Map<String, String> temp = new HashMap<String, String>();
+                    temp.put("name", m.name + " " + m.lastName);
+                    temp.put("title" , m.title);
+                    maps.add(temp);
+                }
+            }
+        });
         return new SimpleAdapter(getContext(), maps,
                 android.R.layout.simple_list_item_2,
                 new String[] {"name", "title"},

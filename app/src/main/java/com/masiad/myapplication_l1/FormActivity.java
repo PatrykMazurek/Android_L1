@@ -43,7 +43,9 @@ public class FormActivity extends AppCompatActivity {
                 if(!etMessage.getText().toString().isEmpty()){
                     textMessage = etMessage.getText().toString();
                 }
-                MainActivity.messageList.add(new Message(name, lastName, title, textMessage));
+//                MainActivity.messageList.add(new Message(name, lastName, title, textMessage));
+                MainActivity.repository.insertMessage(
+                        new Message(name, lastName, title, textMessage));
                 Toast.makeText(FormActivity.this, "Dodano wiadomość do listy", Toast.LENGTH_SHORT).show();
                 finish();
             }
